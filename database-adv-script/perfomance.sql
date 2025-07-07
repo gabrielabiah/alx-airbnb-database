@@ -1,11 +1,13 @@
 -- Initial Query (Unoptimized)
--- This retrieves all bookings with full user, property, and payment details
+-- Retrieves bookings with user, property, and payment details
+-- Includes WHERE and AND clauses for filtering by date and status
 EXPLAIN ANALYZE
 SELECT 
     b.booking_id,
     b.start_date,
     b.end_date,
     b.total_price,
+    b.status,
     u.user_id,
     u.first_name,
     u.last_name,
@@ -19,10 +21,12 @@ SELECT
 FROM bookings b
 JOIN users u ON b.user_id = u.user_id
 JOIN properties p ON b.property_id = p.property_id
-LEFT JOIN payments pay ON b.booking_id = pay.booking_id;
+LEFT JOIN payments pay ON b.booking_id = pay.booking_id
+WHERE b.status = 'confirmed'
+  AND b.start_date >= '2024-01-01';
 
--- Refactored Query (Optimized)
--- Assumes indexes already exist on booking_id, user_id, property_id
+-- Optimized Query (Refactored)
+-- Targets specific columns only and uses same WHERE filtering
 EXPLAIN ANALYZE
 SELECT 
     b.booking_id,
@@ -36,4 +40,6 @@ SELECT
 FROM bookings b
 JOIN users u ON b.user_id = u.user_id
 JOIN properties p ON b.property_id = p.property_id
-LEFT JOIN payments pay ON b.booking_id = pay.booking_id;
+LEFT JOIN payments pay ON b.booking_id = pay.booking_id
+WHERE b.status = 'confirmed'
+  AND b.start_date >= '2024-01-01';
