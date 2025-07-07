@@ -1,22 +1,28 @@
--- Indexes to optimize joins, filtering, and ordering performance
+-- Before adding index on users.email
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'guest@example.com';
 
--- 1. User Table
--- Optimize lookup and authentication by indexing email
+-- Create index on users.email
 CREATE INDEX idx_users_email ON users(email);
 
--- 2. Booking Table
--- Optimize user-booking joins and filtering by user_id
+-- After adding index on users.email
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'guest@example.com';
+
+
+-- Before adding index on bookings.user_id
+EXPLAIN ANALYZE SELECT * FROM bookings WHERE user_id = 'uuid-user-1';
+
+-- Create index on bookings.user_id
 CREATE INDEX idx_bookings_user_id ON bookings(user_id);
 
--- Optimize filtering by property_id (e.g., finding bookings for a property)
-CREATE INDEX idx_bookings_property_id ON bookings(property_id);
+-- After adding index on bookings.user_id
+EXPLAIN ANALYZE SELECT * FROM bookings WHERE user_id = 'uuid-user-1';
 
--- Optimize sorting/filtering by start_date
-CREATE INDEX idx_bookings_start_date ON bookings(start_date);
 
--- 3. Property Table
--- Optimize filtering and ordering by location
+-- Before adding index on properties.location
+EXPLAIN ANALYZE SELECT * FROM properties WHERE location = 'Accra';
+
+-- Create index on properties.location
 CREATE INDEX idx_properties_location ON properties(location);
 
--- Optimize price sorting
-CREATE INDEX idx_properties_price ON properties(pricepernight);
+-- After adding index on properties.location
+EXPLAIN ANALYZE SELECT * FROM properties WHERE location = 'Accra';
