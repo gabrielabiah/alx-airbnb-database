@@ -48,3 +48,47 @@ A correlated subquery compares each user's `user_id` to their count of bookings 
 ---
 
 Both queries simulate real-world insights from the Airbnb dataset and support performance-oriented query writing.
+
+# Aggregations and Window Functions – Airbnb Database
+
+This task demonstrates SQL aggregation and window functions using the Airbnb schema to generate analytical insights from booking data.
+
+## Queries Included
+
+### 1. Aggregation Query
+
+**Objective:**  
+Retrieve the total number of bookings made by each user.
+
+**Technique Used:**
+
+- `COUNT(*)` function
+- `GROUP BY` user_id
+
+**Sample Output:**  
+| user_id | total_bookings |
+|---------|----------------|
+| U123 | 5 |
+| U456 | 3 |
+
+---
+
+### 2. Window Function Query
+
+**Objective:**  
+Rank properties by the total number of bookings they have received.
+
+**Technique Used:**
+
+- `RANK()` window function with `OVER (ORDER BY COUNT(*) DESC)`
+- Grouping by `property_id`
+
+**Sample Output:**  
+| property_id | total_bookings | booking_rank |
+|-------------|----------------|--------------|
+| P101 | 12 | 1 |
+| P099 | 8 | 2 |
+
+---
+
+Both queries are optimized for performance and simulate real-world analytical reports.
