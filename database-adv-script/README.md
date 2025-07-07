@@ -22,3 +22,29 @@ This module focuses on practicing different types of SQL joins using the Airbnb 
 ## Note
 
 - MySQL does not support FULL OUTER JOIN directly, so it has been simulated using `UNION`.
+
+# Subqueries in SQL – Airbnb Database
+
+This task demonstrates the use of correlated and non-correlated subqueries in SQL using the Airbnb schema.
+
+## Queries Included
+
+### 1. Non-Correlated Subquery
+
+**Objective:**  
+Find all properties where the average rating is greater than 4.0.
+
+**Approach:**  
+A non-correlated subquery is used in the `WHERE` clause to filter `property_id`s with an average rating greater than 4.0.
+
+### 2. Correlated Subquery
+
+**Objective:**  
+Identify users who have made more than 3 bookings.
+
+**Approach:**  
+A correlated subquery compares each user's `user_id` to their count of bookings in the `bookings` table.
+
+---
+
+Both queries simulate real-world insights from the Airbnb dataset and support performance-oriented query writing.
